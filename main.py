@@ -1,5 +1,6 @@
 from data.yahoo_provider import YahooProvider
 from strategy.ema_strategy import EMAStrategy
+from strategy.signal_builder import SignalBuilder
 
 SYMBOL = "^NSEI"  # NIFTY 50
 INTERVAL = "5m"
@@ -7,7 +8,7 @@ INTERVAL = "5m"
 
 def main():
     provider = YahooProvider()
-    strategy = EMAStrategy()
+    builder = SignalBuilder()
 
     print("Fetching market data...")
 
@@ -20,7 +21,7 @@ def main():
     print(df.columns)
     print(df.tail())
 
-    result = strategy.calculate(df)
+    result = builder.generate(df)    
 
     print("\n========== TradeBot ==========")
     print(f"Trend   : {result['trend']}")
@@ -29,7 +30,10 @@ def main():
     print(f"EMA 15  : {result['ema15']}")
     print(f"BUY     : {result['buy']}")
     print(f"SELL    : {result['sell']}")
+    print(f"Signal  : {result['signal']}")
     print("===============================")
+
+    
 
 
 if __name__ == "__main__":

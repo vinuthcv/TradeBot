@@ -24,13 +24,20 @@ def main():
     result = builder.generate(df)    
 
     print("\n========== TradeBot ==========")
-    print(f"Trend   : {result['trend']}")
-    print(f"Close   : {result['close']}")
-    print(f"EMA 9   : {result['ema9']}")
-    print(f"EMA 15  : {result['ema15']}")
-    print(f"BUY     : {result['buy']}")
-    print(f"SELL    : {result['sell']}")
-    print(f"Signal  : {result['signal']}")
+    print(f"Trend      : {result['trend']}")
+    print(f"Close      : {result['close']}")
+    print(f"EMA 9      : {result['ema9']}")
+    print(f"EMA 15     : {result['ema15']}")
+    print(f"ATR        : {result['atr']}")
+    print(f"BUY        : {result['buy']}")
+    print(f"SELL       : {result['sell']}")
+    print(f"Signal     : {result['signal']}")
+
+    if result["signal"]:
+        print(f"Entry      : {result['entry']}")
+        print(f"Stop Loss  : {result['stop_loss']}")
+        print(f"Target     : {result['target']}")
+
     print("===============================")
 
     

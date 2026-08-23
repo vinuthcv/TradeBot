@@ -26,7 +26,10 @@ class EMAStrategy:
         )
 
         return {
-            "trend": trend,
-            "ema9": round(latest["ema9"], 2),
-            "ema15": round(latest["ema15"], 2),
-        }
+    "trend": trend,
+    "ema9": float(round(latest["ema9"], 2)),
+    "ema15": float(round(latest["ema15"], 2)),
+    "close": float(round(latest["close"], 2)),
+    "buy": bool(latest["ema9"] > latest["ema15"]),
+    "sell": bool(latest["ema9"] < latest["ema15"]),
+}

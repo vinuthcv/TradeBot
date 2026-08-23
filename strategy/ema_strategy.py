@@ -19,17 +19,17 @@ class EMAStrategy:
 
         latest = df.iloc[-1]
 
-        trend = (
-            "BULLISH"
-            if latest["ema9"] > latest["ema15"]
-            else "BEARISH"
-        )
+        ema9 = float(latest["ema9"])
+        ema15 = float(latest["ema15"])
+        close = float(latest["close"])
+
+        trend = "BULLISH" if ema9 > ema15 else "BEARISH"
 
         return {
-    "trend": trend,
-    "ema9": float(round(latest["ema9"], 2)),
-    "ema15": float(round(latest["ema15"], 2)),
-    "close": float(round(latest["close"], 2)),
-    "buy": bool(latest["ema9"] > latest["ema15"]),
-    "sell": bool(latest["ema9"] < latest["ema15"]),
-}
+            "trend": trend,
+            "ema9": round(ema9, 2),
+            "ema15": round(ema15, 2),
+            "close": round(close, 2),
+            "buy": ema9 > ema15,
+            "sell": ema9 < ema15,
+        }

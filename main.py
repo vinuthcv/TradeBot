@@ -1,10 +1,36 @@
-from rich import print
+from data.yahoo_provider import YahooProvider
+from strategy.ema_strategy import EMAStrategy
 
-print("=" * 50)
-print("[bold green]TradeBot v1.0[/bold green]")
-print("=" * 50)
-print("Instrument :", "SENSEX")
-print("Timeframe  :", "5m")
-print("Fast EMA   :", 9)
-print("Slow EMA   :", 15)
-print("=" * 50)
+SYMBOL = "^NSEI"  # NIFTY 50
+INTERVAL = "5m"
+
+
+def main():
+    provider = YahooProvider()
+    strategy = EMAStrategy()
+
+    print("Fetching market data...")
+
+    df = provider.get_candles(SYMBOL, INTERVAL)
+
+    if df.empty:
+        print("No market data received.")
+        return
+
+    print(df.columns)
+    print(df.tail())
+
+    result = strategy.calculate(df)
+
+    print("\n========== TradeBot ==========")
+    print(f"Trend   : {result['trend']}")
+    print(f"Close   : {result['close']}")
+    print(f"EMA 9   : {result['ema9']}")
+    print(f"EMA 15  : {result['ema15']}")
+    print(f"BUY     : {result['buy']}")
+    print(f"SELL    : {result['sell']}")
+    print("===============================")
+
+
+if __name__ == "__main__":
+    main()
